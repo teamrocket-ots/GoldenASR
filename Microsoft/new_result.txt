@@ -1,0 +1,92 @@
+============================================================
+  Running GPU scorers (Moonshine)...
+============================================================
+GPU memory: 9.7 GB free / 17.1 GB total
+Loading Moonshine model: UsefulSensors/moonshine-tiny-ar ...
+preprocessor_config.json: 100%
+ 215/215 [00:00<00:00, 24.8kB/s]
+config.json: 100%
+ 892/892 [00:00<00:00, 93.7kB/s]
+tokenizer.json: 
+ 3.76M/? [00:00<00:00, 56.1MB/s]
+model.safetensors: 100%
+ 108M/108M [00:02<00:00, 48.4MB/s]
+Loading weights: 100%
+ 160/160 [00:00<00:00, 797.93it/s, Materializing param=model.encoder.layers.5.self_attn.v_proj.weight]
+generation_config.json: 100%
+ 184/184 [00:00<00:00, 14.5kB/s]
+Moonshine loaded on cuda:0 (dtype=torch.float16)
+  Sampling rate: 16000
+  Token factor: 13
+GPU memory after load: 9.5 GB free / 17.1 GB total
+Moonshine-Ref: 100%
+ 100/100 [03:18<00:00,  2.55s/it]
+This is a friendly reminder - the current text generation call has exceeded the model's predefined maximum length (194). Depending on the model, you may observe exceptions, performance degradation, or nothing at all.
+Caching Moonshine refs: 100%
+ 100/100 [00:00<00:00, 6574.76it/s]
+Generated 100 Moonshine pseudo-references
+Loading wav2vec2-xlsr-53...
+CTC setup failed (will skip): expected str, bytes or os.PathLike object, not NoneType
+Loading AraGPT2...
+Loading weights: 100%
+ 148/148 [00:00<00:00, 805.21it/s, Materializing param=transformer.wte.weight]
+GPT2LMHeadModel LOAD REPORT from: aubmindlab/aragpt2-base
+Key                         | Status     |  | 
+----------------------------+------------+--+-
+h.{0...11}.attn.masked_bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+AraGPT2 loaded.
+Fusion: 100%
+ 100/100 [00:06<00:00, 17.56it/s]
+
+Running Confidence-Gated Hybrid...
+Gated: 100%
+ 100/100 [00:00<00:00, 93.24it/s]
+
+Gated decisions: {'moonshine': 17, 'blend': 82, 'mbr': 1, 'total': 100}
+  Moonshine-confident: 17/100 (17%)
+  Blended (uncertain): 82/100 (82%)
+  MBR fallback: 1/100
+  ======================================================================
+  EVALUATION — Independent Whisper Medium as Proxy GT
+  (Scorer uses Moonshine, evaluator uses Whisper medium → no circularity)
+======================================================================
+Scorer                         Acc      WER      CER   Oracle      Gap
+----------------------------------------------------------------------
+MBR (vanilla)                17.0%   0.8963   0.7115   0.8366   0.0597
+MBR + Outlier                18.0%   0.8923   0.7074   0.8366   0.0557
+Text Heuristics              25.0%   0.8885   0.7104   0.8366   0.0520
+Moonshine Pseudo-Ref         40.0%   0.8762   0.6393   0.8366   0.0396
+Confidence-Gated             40.0%   0.8740   0.6389   0.8366   0.0374
+Full Fusion                  31.0%   0.8810   0.6821   0.8366   0.0444
+======================================================================
+Note: Evaluator is Whisper medium (independent from the Moonshine scorer)
+      'Gap' = WER - Oracle WER (lower = closer to best possible choice)
+
+======================================================================
+  COMPARISON — Self-evaluation (Moonshine, CIRCULAR — for reference only)
+======================================================================
+Scorer                         Acc      WER      CER
+----------------------------------------------------------------------
+MBR (vanilla)                15.0%   0.6019   0.3153
+MBR + Outlier                16.0%   0.6019   0.3149
+Text Heuristics              24.0%   0.5975   0.3156
+Moonshine Pseudo-Ref         48.0%   0.5783   0.2639
+Confidence-Gated             44.0%   0.5799   0.2649
+Full Fusion                  36.0%   0.5896   0.2928
+======================================================================
+(Moonshine scorer evaluating against itself — inflated, use Whisper medium eval above)
+add Codeadd Markdown
+
+============================================================
+  INTER-SCORER AGREEMENT
+============================================================
+                           MBR (vanil  MBR + Outl  Text Heuri  Moonshine   Confidence  Full Fusio
+            MBR (vanilla)      100.0%       99.0%       61.0%       18.0%       31.0%       40.0%
+            MBR + Outlier       99.0%      100.0%       62.0%       19.0%       32.0%       41.0%
+          Text Heuristics       61.0%       62.0%      100.0%       13.0%       21.0%       31.0%
+     Moonshine Pseudo-Ref       18.0%       19.0%       13.0%      100.0%       85.0%       43.0%
+         Confidence-Gated       31.0%       32.0%       21.0%       85.0%      100.0%       50.0%
+              Full Fusion       40.0%       41.0%       31.0%       43.0%       50.0%      100.0%

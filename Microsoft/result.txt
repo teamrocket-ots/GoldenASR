@@ -1,0 +1,40 @@
+======================================================================
+  EVALUATION — Independent Whisper Medium as Proxy GT
+  (Scorer uses large-v3, evaluator uses medium → no circularity)
+======================================================================
+Scorer                         Acc      WER      CER   Oracle      Gap
+----------------------------------------------------------------------
+MBR (vanilla)                19.0%   0.9027   0.7405   0.8489   0.0538
+MBR + Outlier                20.0%   0.8987   0.7363   0.8489   0.0498
+Text Heuristics              28.0%   0.8941   0.7387   0.8489   0.0452
+Whisper Pseudo-Ref           42.0%   0.8761   0.6572   0.8489   0.0272
+Confidence-Gated             40.0%   0.8777   0.6576   0.8489   0.0288
+Full Fusion                  36.0%   0.8874   0.7102   0.8489   0.0385
+======================================================================
+Note: Evaluator is Whisper medium (independent from the large-v3 scorer)
+      'Gap' = WER - Oracle WER (lower = closer to best possible choice)
+
+======================================================================
+  COMPARISON — Self-evaluation (large-v3, CIRCULAR — for reference only)
+======================================================================
+Scorer                         Acc      WER      CER
+----------------------------------------------------------------------
+MBR (vanilla)                19.0%   0.5457   0.2870
+MBR + Outlier                20.0%   0.5451   0.2864
+Text Heuristics              26.0%   0.5440   0.2881
+Whisper Pseudo-Ref           46.0%   0.5234   0.2263
+Confidence-Gated             43.0%   0.5240   0.2280
+Full Fusion                  40.0%   0.5363   0.2625
+======================================================================
+(Whisper scorer evaluating against itself — inflated, use medium eval above)
+
+============================================================
+  INTER-SCORER AGREEMENT
+============================================================
+                           MBR (vanil  MBR + Outl  Text Heuri  Whisper Ps  Confidence  Full Fusio
+            MBR (vanilla)      100.0%       99.0%       61.0%       16.0%       26.0%       38.0%
+            MBR + Outlier       99.0%      100.0%       62.0%       17.0%       27.0%       39.0%
+          Text Heuristics       61.0%       62.0%      100.0%       12.0%       20.0%       33.0%
+       Whisper Pseudo-Ref       16.0%       17.0%       12.0%      100.0%       85.0%       46.0%
+         Confidence-Gated       26.0%       27.0%       20.0%       85.0%      100.0%       52.0%
+              Full Fusion       38.0%       39.0%       33.0%       46.0%       52.0%      100.0%
