@@ -28,7 +28,6 @@ Thumbs.db
 audio_files/
 
 # Output artifacts
-*.csv
 *.png
 !results/.gitkeep
 
