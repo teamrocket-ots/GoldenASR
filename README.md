@@ -33,7 +33,7 @@ Given an audio sample and five candidate transcriptions, the pipeline identifies
 
 ### Key Insight (Arabic\_SA)
 
-All 49 labeled samples fall into the **similar regime** where options differ only in punctuation and formatting. The golden transcription is the "odd one out" with **negative consensus** (least similar to peers).
+All 49 labelled samples fall into the **similar regime** where options differ only in punctuation and formatting. The golden transcription is the "odd one out" with **negative consensus** (least similar to peers).
 
 ### Pipeline Flow
 
@@ -292,5 +292,6 @@ Team Rocket
 ---
 
 ## License
+
 
 This project is provided for the Transcription Assessment challenge. See repository-level license for details.
