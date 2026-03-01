@@ -101,7 +101,7 @@ GoldenASR/
 |       |-- writer.py            # CSV output generation
 |       |-- visualization.py     # Analysis panel plotting
 |-- notebooks/
-|   |-- golden_transcription_v5_arabic_sa.ipynb   # Original monolithic notebook
+|   |-- golden_transcription_sa.ipynb   # Original monolithic notebook
 |-- results/                     # Placeholder for output artifacts
 |-- requirements.txt             # Python dependencies
 |-- .gitignore
@@ -219,7 +219,7 @@ Orchestrates the full end-to-end pipeline: data loading, audio download, dual AS
 
 The original monolithic Kaggle submission notebook is preserved at:
 
-[notebooks/golden_transcription_v5_arabic_sa.ipynb](notebooks/golden_transcription_v5_arabic_sa.ipynb)
+[notebooks/golden_transcription_sa.ipynb](notebooks/golden_transcription_sa.ipynb)
 
 This notebook contains the same logic as the modularized package, structured for direct execution on Kaggle with GPU runtime. It is kept as a reference and for reproducibility of the original submission.
 
