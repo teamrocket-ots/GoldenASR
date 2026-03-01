@@ -1,0 +1,24 @@
+# Core
+torch>=2.0.0
+torchaudio>=2.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+
+# ASR Models
+openai-whisper>=20231117
+transformers>=4.36.0
+sentencepiece>=0.1.99
+protobuf>=4.25.0
+
+# Evaluation
+jiwer>=3.0.0
+
+# Audio
+pydub>=0.25.1
+
+# Utilities
+requests>=2.31.0
+tqdm>=4.66.0
+
+# Visualization
+matplotlib>=3.8.0
